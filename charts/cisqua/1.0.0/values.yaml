@@ -1,0 +1,45 @@
+replicaCount: 1
+
+image:
+  repository: pathsny/cisqua
+  pullPolicy: Always
+  tag: latest
+
+general:
+  timezone: "Etc/UTC"
+  appEnvironment: "production"
+  envList: []
+
+probes:
+  startup:
+    failureThreshold: 3
+    periodSeconds: 60
+  liveness:
+    path: "/"
+    failureThreshold: 1
+    periodSeconds: 60
+
+userAndGroup:
+  runAsUser: ""
+  runAsGroup: ""
+  fsGroup: ""
+  UMASK: "0022"
+
+
+network:
+  webPort: 4567
+  appPort: 4567
+  servicePort: 4567
+
+resources:
+  limits: {}
+  requests: {}
+
+storage:
+  appDataVolume:
+    mountPath: "/usr/src/app/data"
+    hostPath:
+      path: "" # Path on your host machine
+      type: Directory
+  additionalStorages: []
+
