@@ -49,7 +49,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: app-data
-              mountPath: {{ .Values.storage.appDataVolume.mountPath }}
+              mountPath: {{ .Values.appStorage.appDataVolume.mountPath }}
             {{- range $index, $storage := .additionalStorages }}
             - name: "additional-storage-{{ $index }}"
               mountPath: {{ $storage.mountPath }}
@@ -67,7 +67,7 @@ spec:
               value: {{ .value | quote }}
             {{- end }}
       volumes:
-        {{- with .Values.storage }}
+        {{- with .Values.appStorage }}
         - name: app-data
           {{- if .appDataVolume.hostPath }}
           hostPath:
