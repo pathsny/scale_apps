@@ -4,7 +4,7 @@ description: Cisqua is an AniDB client and library management system
 
 type: application
 
-version: 1.0.1
+version: 1.0.2
 
 appVersion: "1.0.0"
 home: "https://github.com/pathsny/cisqua"

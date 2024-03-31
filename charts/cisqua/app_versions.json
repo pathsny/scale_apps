@@ -1,21 +1,21 @@
 {
-    "1.0.1": {
+    "1.0.2": {
         "healthy": true,
         "supported": true,
         "healthy_error": null,
-        "location": "/Users/vsi/Projects/scale_apps/charts/cisqua/1.0.1",
-        "last_update": "2024-03-31 10:25:53",
+        "location": "/Users/vsi/Projects/scale_apps/charts/cisqua/1.0.2",
+        "last_update": "2024-03-31 11:05:02",
         "required_features": [
             "definitions/timezone"
         ],
-        "human_version": "1.0.0_1.0.1",
-        "version": "1.0.1",
+        "human_version": "1.0.0_1.0.2",
+        "version": "1.0.2",
         "chart_metadata": {
             "apiVersion": "v2",
             "name": "cisqua",
             "description": "Cisqua is an AniDB client and library management system",
             "type": "application",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "appVersion": "1.0.0",
             "home": "https://github.com/pathsny/cisqua",
             "icon": "https://github.com/pathsny/scale_apps/blob/1212c1356f1ec8e7fda845867e2fa4fceb434d9a/charts/cisqua/1.0.0/cisqua.png",
@@ -201,19 +201,19 @@
                                                         }
                                                     },
                                                     {
+                                                        "variable": "hostPath",
+                                                        "label": "The host path to use for storage.",
+                                                        "schema": {
+                                                            "type": "hostpath",
+                                                            "required": true
+                                                        }
+                                                    },
+                                                    {
                                                         "variable": "mountPath",
                                                         "label": "Mount Path",
                                                         "description": "The path inside the container to mount the storage.",
                                                         "schema": {
                                                             "type": "path",
-                                                            "required": true
-                                                        }
-                                                    },
-                                                    {
-                                                        "variable": "hostPath",
-                                                        "label": "The host path to use for storage.",
-                                                        "schema": {
-                                                            "type": "hostpath",
                                                             "required": true
                                                         }
                                                     }

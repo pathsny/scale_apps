@@ -105,16 +105,16 @@ questions:
                       schema:
                         type: boolean
                         default: false
+                    - variable: hostPath
+                      label: The host path to use for storage.
+                      schema:
+                        type: hostpath
+                        required: true
                     - variable: mountPath
                       label: Mount Path
                       description: The path inside the container to mount the storage.
                       schema:
                         type: path
-                        required: true
-                    - variable: hostPath
-                      label: The host path to use for storage.
-                      schema:
-                        type: hostpath
                         required: true
   - variable: userAndGroup
     group: User and Group Configuration
