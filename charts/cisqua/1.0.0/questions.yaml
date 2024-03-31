@@ -7,7 +7,7 @@ groups:
     description: Persist and Share Data that is Separate from the Container
   - name: User and Group Configuration
     description: Configure User and Group Information
-  - name: Resources and Devices
+  - name: Resources Configuration
     description: "Specify Resources/Devices to be Allocated to Workload"
 
 questions:
@@ -86,7 +86,7 @@ questions:
           schema:
             required: true
             immutable: true
-            type: hostPath
+            type: hostpath
         - variable: additionalStorages
           label: Additional Storage
           description: The location where app data is stored. Includes configuration.
