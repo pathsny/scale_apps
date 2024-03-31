@@ -1,21 +1,21 @@
 {
-    "1.0.0": {
+    "1.0.1": {
         "healthy": true,
         "supported": true,
         "healthy_error": null,
-        "location": "/Users/vsi/Projects/scale_apps/charts/cisqua/1.0.0",
-        "last_update": "2024-03-25 00:08:35",
+        "location": "/Users/vsi/Projects/scale_apps/charts/cisqua/1.0.1",
+        "last_update": "2024-03-31 10:25:53",
         "required_features": [
             "definitions/timezone"
         ],
-        "human_version": "1.0.0_1.0.0",
-        "version": "1.0.0",
+        "human_version": "1.0.0_1.0.1",
+        "version": "1.0.1",
         "chart_metadata": {
             "apiVersion": "v2",
             "name": "cisqua",
             "description": "Cisqua is an AniDB client and library management system",
             "type": "application",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "appVersion": "1.0.0",
             "home": "https://github.com/pathsny/cisqua",
             "icon": "https://github.com/pathsny/scale_apps/blob/1212c1356f1ec8e7fda845867e2fa4fceb434d9a/charts/cisqua/1.0.0/cisqua.png",
@@ -151,7 +151,7 @@
                                 "description": "The port for the Cisqua Web UI.",
                                 "schema": {
                                     "type": "int",
-                                    "min": 9000,
+                                    "min": 1,
                                     "max": 65535,
                                     "default": 4567,
                                     "required": true
