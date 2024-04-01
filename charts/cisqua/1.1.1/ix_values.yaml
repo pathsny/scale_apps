@@ -6,7 +6,7 @@ image:
   tag: latest
 
 general:
-  timezone: "Etc/UTC"
+  TZ: "Etc/UTC"
   appEnvironment: "production"
   envList: []
   UMASK: "0022"
@@ -44,3 +44,5 @@ appStorage:
       type: Directory
   additionalStorages: []
 
+metalLB:
+  enabled: true

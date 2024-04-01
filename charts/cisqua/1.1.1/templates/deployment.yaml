@@ -55,7 +55,7 @@ spec:
           {{- end }}
           env:
             - name: TZ
-              value: {{.Values.general.timezone | quote }}
+              value: {{.Values.general.TZ | quote }}
             - name: RACK_ENV
               value: {{.Values.general.appEnvironment | quote }}
             - name: UMASK
