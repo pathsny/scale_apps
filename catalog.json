@@ -10,10 +10,10 @@
             "healthy_error": null,
             "home": "https://github.com/pathsny/cisqua",
             "location": "/Users/vsi/Projects/scale_apps/charts/cisqua",
-            "latest_version": "2.0.0",
+            "latest_version": "1.1.1",
             "latest_app_version": "1.0.0",
-            "latest_human_version": "1.0.0_2.0.0",
-            "last_update": "2024-04-01 07:30:30",
+            "latest_human_version": "1.0.0_1.1.1",
+            "last_update": "2024-04-01 00:48:17",
             "name": "cisqua",
             "recommended": false,
             "title": "Cisqua",
@@ -23,7 +23,7 @@
             "sources": [
                 "https://github.com/pathsny/cisqua"
             ],
-            "icon_url": "https://i.imgur.com/Qrj2c8s.png"
+            "icon_url": "https://imgur.com/a/ZUkA0Nb"
         }
     },
     "test": {}
