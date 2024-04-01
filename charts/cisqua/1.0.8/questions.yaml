@@ -108,8 +108,21 @@ questions:
                     - variable: hostPath
                       label: The host path to use for storage.
                       schema:
-                        type: hostpath
-                        required: true
+                        type: dict
+                        attrs:
+                          - variable: path
+                            label: The path on the host machine
+                            description: The path on the host machine to use for storage.
+                            schema:
+                              type: hostpath
+                              required: true
+                          - variable: type
+                            label: The type of host path
+                            description: The type of host path.
+                            schema:
+                              type: string
+                              hidden: true
+                              default: Directory
                     - variable: mountPath
                       label: Mount Path
                       description: The path inside the container to mount the storage.
