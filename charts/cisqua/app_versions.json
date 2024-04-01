@@ -1,21 +1,21 @@
 {
-    "1.0.6": {
+    "1.0.7": {
         "healthy": true,
         "supported": true,
         "healthy_error": null,
-        "location": "/Users/vsi/Projects/scale_apps/charts/cisqua/1.0.6",
-        "last_update": "2024-03-31 17:46:10",
+        "location": "/Users/vsi/Projects/scale_apps/charts/cisqua/1.0.7",
+        "last_update": "2024-03-31 18:32:13",
         "required_features": [
             "definitions/timezone"
         ],
-        "human_version": "1.0.0_1.0.6",
-        "version": "1.0.6",
+        "human_version": "1.0.0_1.0.7",
+        "version": "1.0.7",
         "chart_metadata": {
             "apiVersion": "v2",
             "name": "cisqua",
             "description": "Cisqua is an AniDB client and library management system",
             "type": "application",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "appVersion": "1.0.0",
             "home": "https://github.com/pathsny/cisqua",
             "icon": "https://github.com/pathsny/scale_apps/blob/1212c1356f1ec8e7fda845867e2fa4fceb434d9a/charts/cisqua/1.0.0/cisqua.png",
@@ -168,23 +168,13 @@
                         "type": "dict",
                         "attrs": [
                             {
-                                "variable": "appDataVolume",
+                                "variable": "appDataHostPath",
                                 "label": "App Data Storage",
                                 "description": "The location where app data is stored. Includes configuration.",
                                 "schema": {
-                                    "type": "dict",
-                                    "attrs": [
-                                        {
-                                            "variable": "hostPath",
-                                            "label": "Host Path",
-                                            "description": "The hostPath where the app data is stored",
-                                            "schema": {
-                                                "required": true,
-                                                "immutable": true,
-                                                "type": "hostpath"
-                                            }
-                                        }
-                                    ]
+                                    "required": true,
+                                    "immutable": true,
+                                    "type": "hostpath"
                                 }
                             },
                             {

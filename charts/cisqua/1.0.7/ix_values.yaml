@@ -36,10 +36,10 @@ resources:
   requests: {}
 
 appStorage:
+  appDataHostPath: "" # Path on your host machine
   appDataVolume:
     mountPath: "/usr/src/app/data"
     hostPath:
-      path: "" # Path on your host machine
       type: Directory
   additionalStorages: []
 
