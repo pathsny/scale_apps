@@ -48,13 +48,15 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+          {{- with .Values.appStorage }}
             - name: app-data
-              mountPath: {{ .Values.appStorage.appDataVolume.mountPath }}
+              mountPath: {{ .appDataVolume.mountPath }}
             {{- range $index, $storage := .additionalStorages }}
             - name: "additional-storage-{{ $index }}"
               mountPath: {{ $storage.mountPath }}
               readOnly: {{ $storage.readOnly }}
             {{- end }}
+          {{- end }}
           env:
             - name: TZ
               value: {{.Values.general.timezone | quote }}
