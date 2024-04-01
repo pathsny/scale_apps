@@ -9,6 +9,8 @@ general:
   timezone: "Etc/UTC"
   appEnvironment: "production"
   envList: []
+  UMASK: "0022"
+
 
 probes:
   startup:
@@ -19,15 +21,14 @@ probes:
     failureThreshold: 1
     periodSeconds: 60
 
-userAndGroup:
-  runAsUser: ""
-  runAsGroup: ""
-  fsGroup: ""
-  UMASK: "0022"
-
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
+  fsGroupChangePolicy: "OnRootMismatch"
 
 network:
-  webPort: 4567
   appPort: 4567
   servicePort: 4567
 

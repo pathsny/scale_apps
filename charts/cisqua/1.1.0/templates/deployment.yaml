@@ -15,16 +15,12 @@ spec:
         {{- include "cisqua.labels" . | nindent 8 }}
     spec:
       securityContext:
-        {{- with .Values.userAndGroup }}
-        {{- if .runAsUser }}
-          runAsUser: {{ .runAsUser }}
-        {{- end}}
-        {{- if .runAsGroup }}
-          runAsGroup: {{ .runAsGroup }}
-        {{- end}}
-        {{- if .fsGroup }}
-          fsGroup: {{ .fsGroup }}
-        {{- end}}
+        {{- with .Values.podSecurityContext }}
+        runAsNonRoot: {{ .runAsNonRoot }}
+        runAsUser: {{ .runAsUser }}
+        runAsGroup: {{ .runAsGroup }}
+        fsGroup: {{ .fsGroup }}
+        fsGroupChangePolicy: {{ .fsGroupChangePolicy }}
         {{- end}}
       containers:
         - name: {{ .Chart.Name }}
@@ -36,7 +32,7 @@ spec:
               protocol: TCP
           startupProbe:
             tcpSocket:
-              port: {{ .Values.network.servicePort }}
+              port: {{ .Values.network.appPort }}
             failureThreshold: {{ .Values.probes.startup.failureThreshold }}
             periodSeconds: {{ .Values.probes.startup.periodSeconds }}
           livenessProbe:
@@ -63,7 +59,7 @@ spec:
             - name: RACK_ENV
               value: {{.Values.general.appEnvironment | quote }}
             - name: UMASK
-              value: {{ .Values.userAndGroup.UMASK | quote }}
+              value: {{ .Values.general.UMASK | quote }}
             {{- range .Values.general.envList }}
             - name: {{ .name }}
               value: {{ .value | quote }}

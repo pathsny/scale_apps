@@ -5,11 +5,10 @@ metadata:
   labels:
     {{- include "cisqua.labels" . | nindent 4 }}
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: {{ .Values.network.servicePort }}
       targetPort: {{ .Values.network.appPort }}
-      nodePort: {{ .Values.network.webPort }}
       protocol: TCP
   selector:
     {{- include "cisqua.selectorLabels" . | nindent 4 }}
