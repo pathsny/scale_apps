@@ -74,7 +74,7 @@ questions:
             default: 4567
             required: true
 
-  - variable: storage
+  - variable: appStorage
     label: ""
     group: Storage Configuration
     schema:
