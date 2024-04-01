@@ -84,9 +84,15 @@ questions:
           label: App Data Storage
           description: The location where app data is stored. Includes configuration.
           schema:
-            required: true
-            immutable: true
-            type: hostpath
+            type: dict
+            attrs:
+              - variable: hostPath
+                label: Host Path
+                description: The hostPath where the app data is stored
+                schema:
+                  required: true
+                  immutable: true
+                  type: hostpath
         - variable: additionalStorages
           label: Additional Storage
           description: The location where app data is stored. Includes configuration.
