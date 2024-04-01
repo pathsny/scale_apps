@@ -1,0 +1,74 @@
+replicaCount: 1
+
+image:
+  repository: pathsny/cisqua
+  pullPolicy: Always
+  tag: latest
+
+redisImage:
+  repository: redis/redis-stack-server
+  pullPolicy: Always
+  tag: latest
+
+
+general:
+  TZ: "Etc/UTC"
+  appEnvironment: "production"
+  envList:
+    - name: REDIS_HOST
+      value: "localhost"
+  UMASK: "0022"
+
+probes:
+  startup:
+    failureThreshold: 3
+    periodSeconds: 60
+  liveness:
+    path: "/"
+    failureThreshold: 1
+    periodSeconds: 60
+
+redisProbes:
+  startup:
+    exec:
+      command: ["sh", "-c", "redis-cli ping"]
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    failureThreshold: 30
+  liveness:
+    exec:
+      command: ["sh", "-c", "redis-cli ping"]
+    initialDelaySeconds: 120
+    periodSeconds: 60
+    failureThreshold: 5
+
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
+  fsGroupChangePolicy: "OnRootMismatch"
+
+network:
+  appPort: 4567
+  servicePort: 8080
+  redisPort: 6379
+
+resources:
+  limits: {}
+  requests: {}
+
+appStorage:
+  appDataHostPath: "" # Path on your host machine
+  appDataVolume:
+    mountPath: "/usr/src/app/data"
+    hostPath:
+      type: Directory
+  additionalStorages: []
+
+redisStorage:
+  mountPath: "/data"
+
+metalLB:
+  enabled: false

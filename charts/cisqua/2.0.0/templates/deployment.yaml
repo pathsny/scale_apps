@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cisqua.fullname" . }}
+  labels:
+    {{- include "cisqua.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cisqua.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cisqua.labels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.network.appPort }}
+              protocol: TCP
+          {{- with .Values.probes }}
+          {{- if .startup }}
+          startupProbe:
+            tcpSocket:
+              port: {{ $.Values.network.appPort }}
+            failureThreshold: {{ .startup.failureThreshold }}
+            periodSeconds: {{ .startup.periodSeconds }}
+          {{- end }}
+          {{- if.liveness }}
+          livenessProbe:
+            httpGet:
+              path: {{ .liveness.path | quote }}
+              port: {{ $.Values.network.appPort }}
+            failureThreshold: {{ .liveness.failureThreshold }}
+            periodSeconds: {{ .liveness.periodSeconds }}
+          {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- with .Values.appStorage }}
+            - name: app-data
+              mountPath: {{ .appDataVolume.mountPath }}
+            {{- range $index, $storage := .additionalStorages }}
+            - name: "additional-storage-{{ $index }}"
+              mountPath: {{ $storage.mountPath }}
+              readOnly: {{ $storage.readOnly }}
+            {{- end }}
+          {{- end }}
+          env:
+            - name: TZ
+              value: {{.Values.general.TZ | quote }}
+            - name: RACK_ENV
+              value: {{.Values.general.appEnvironment | quote }}
+            - name: UMASK
+              value: {{ .Values.general.UMASK | quote }}
+            - name: REDIS_PORT
+              value: "{{ .Values.network.redisPort }}"
+            {{- range .Values.general.envList }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+        - name: redis-stack-server
+          image: "{{ .Values.redisImage.repository }}:{{ .Values.redisImage.tag }}"
+          imagePullPolicy: {{ .Values.redisImage.pullPolicy }}
+          ports:
+            - name: db
+              containerPort: {{ .Values.network.redisPort }}
+          startupProbe:
+            {{- toYaml .Values.redisProbes.startup | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.redisProbes.liveness | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: app-data
+              mountPath: {{ .Values.redisStorage.mountPath }}
+      volumes:
+        {{- with .Values.appStorage }}
+        - name: app-data
+          {{- if .appDataHostPath }}
+          hostPath:
+            path: {{ .appDataHostPath }}
+            type: {{ default "Directory" .appDataVolume.hostPath.type }}
+          {{- end }}
+        {{- range $index, $storage := .additionalStorages }}
+        - name: "additional-storage-{{ $index }}"
+          hostPath:
+            path: {{ $storage.hostPath.path }}
+            type: {{ default "Directory" $storage.hostPath.type }}
+        {{- end }}
+        {{- end }}
+
+
