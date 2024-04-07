@@ -8,7 +8,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "cisqua.labels" . | nindent 6 }}
+      {{- include "cisqua.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
