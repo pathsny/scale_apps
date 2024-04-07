@@ -70,7 +70,7 @@ questions:
     schema:
       type: dict
       attrs:
-        - variable: webPort
+        - variable: servicePort
           label: Web Port
           description: The port for the Cisqua Web UI.
           schema:
