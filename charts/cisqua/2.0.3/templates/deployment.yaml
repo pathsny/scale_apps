@@ -28,18 +28,24 @@ spec:
           {{- with .Values.probes }}
           {{- if .startup }}
           startupProbe:
-            tcpSocket:
+            httpGet:
+              path: {{ $.Values.probes.probe.httpGet.path }}
               port: {{ $.Values.network.appPort }}
-            failureThreshold: {{ .startup.failureThreshold }}
-            periodSeconds: {{ .startup.periodSeconds }}
+            {{- toYaml .startup | nindent 12 }}
           {{- end }}
-          {{- if.liveness }}
+          {{- if .readiness }}
+          readinessProbe:
+            httpGet:
+              path: {{ .probe.httpGet.path }}
+              port: {{ $.Values.network.appPort }}
+            {{- toYaml .readiness | nindent 12 }}
+          {{- end }}
+          {{- if .liveness }}
           livenessProbe:
             httpGet:
-              path: {{ .liveness.path | quote }}
+              path: {{ .probe.httpGet.path }}
               port: {{ $.Values.network.appPort }}
-            failureThreshold: {{ .liveness.failureThreshold }}
-            periodSeconds: {{ .liveness.periodSeconds }}
+            {{- toYaml .liveness | nindent 12 }}
           {{- end }}
           {{- end }}
           resources:
@@ -73,12 +79,23 @@ spec:
           ports:
             - name: db
               containerPort: {{ .Values.network.redisPort }}
+          {{- with .Values.redisProbes }}
+          {{- if .startup }}
           startupProbe:
-            {{- toYaml .Values.redisProbes.startup | nindent 12 }}
+            {{- toYaml .probe | nindent 12 }}
+            {{- toYaml .startup | nindent 12 }}
+          {{- end }}
+          {{- if .readiness }}
+          readinessProbe:
+            {{- toYaml .probe | nindent 12 }}
+            {{- toYaml .readiness | nindent 12 }}
+          {{- end }}
+          {{- if .liveness }}
           livenessProbe:
-            {{- toYaml .Values.redisProbes.liveness | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .probe | nindent 12 }}
+            {{- toYaml .liveness | nindent 12 }}
+          {{- end }}
+          {{- end }}
           volumeMounts:
             - name: app-data
               mountPath: {{ .Values.redisStorage.mountPath }}

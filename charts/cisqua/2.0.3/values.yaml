@@ -20,28 +20,39 @@ general:
   UMASK: "0022"
 
 probes:
+  probe:
+    httpGet:
+      path: "/"
   startup:
-    failureThreshold: 3
-    periodSeconds: 60
-  liveness:
-    path: "/"
+    periodSeconds: 5
+    initialDelaySeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  readiness:
+    periodSeconds: 1
     failureThreshold: 1
+    timeoutSeconds: 5
+  liveness:
+    initialDelaySeconds: 60
     periodSeconds: 60
+    failureThreshold: 2
+    timeoutSeconds: 5
 
 redisProbes:
+  probe:
+    exec:
+      command: ["sh", "-c", "redis-cli ping"]
   startup:
-    exec:
-      command: ["sh", "-c", "redis-cli ping"]
-    initialDelaySeconds: 10
     periodSeconds: 5
+    initialDelaySeconds: 10
     failureThreshold: 30
+  readiness:
+    periodSeconds: 1
+    failureThreshold: 1
   liveness:
-    exec:
-      command: ["sh", "-c", "redis-cli ping"]
-    initialDelaySeconds: 120
+    initialDelaySeconds: 60
     periodSeconds: 60
-    failureThreshold: 5
-
+    failureThreshold: 2
 
 podSecurityContext:
   runAsNonRoot: true
